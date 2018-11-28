@@ -1,0 +1,185 @@
+  <!doctype html>
+  <html>
+    <head>
+    <title>Auction</title>
+    </head>
+    <body>
+    <div class="overlay hide"></div>
+	<header>
+		<div class="top-header">
+			<div class="enter-wr">
+				<button id="enter-bt">Enter</button>
+				<form id="enter-form" class="hide" onsubmit="return false;">
+					<p>
+						<label for="username">Login</label>
+						<input id="username" class="uname" name="username"  type="text" placeholder="log">
+					</p>
+					<p>
+						<label for="password"  data-icon="p">Password </label>
+						<input id="password" class="youpasswd" name="password"  type="password" />
+					</p>
+					<p class="keeplogin">
+						<input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" />
+						<label for="loginkeeping">Keep me logged in</label>
+					</p>
+					<p class="login button">
+						<input type="submit" value="Login" id="clicker"/>
+						<input type="submit" value="close" id="log-close"/>
+					</p>
+					<p class="reg-link">
+						Not a member yet ?
+						<button class="join-button">Join us</button>
+					</p>
+					<p id="no-log" class="hide">Your password or login is not correct!</p>
+				</form>
+			</div>
+			<div class="logo-wr">
+				<img src="./img/logo.png" alt="">
+				<div class="user-wr hide">
+					<div class="acc-info">
+						<div class="acc-text">Hello, <span id="nick"></span></div>
+						<div class="header-click">
+							<button>Account</button>
+							<button id="log-out">Logout</button>
+			  				<a href="/add_posts" class="add-from-user">Add posts</a>	
+						</div>
+					</div>
+					<div class="img-wrapper">
+						<img class="acc-photo" ></img>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bottom-header">	
+			<nav>
+			  <ul class="menu-wr">
+			  </ul>	
+			</nav>
+		</div>
+	</header>
+	<main>
+		<div id="reg" class="registration-form hide" onsubmit="return false;">
+			<form>
+				<p>
+					<label for="reg-login"  data-icon="u" >Login</label>
+					<input onkeyup="check_params()" id="reg-login" class="uname" name="reg-login"  type="text" placeholder="log">
+					<span id="reg-hint" class="hide">Your login is exist, choose another one</span>
+				</p>
+				<p>
+					<label for="reg-password"  data-icon="p">Password </label>
+					<input onkeyup="check_params()" id="reg-password" class="youpasswd" name="reg-password"  type="password" />
+				</p>
+				<p>
+					<label for="reg-username"  data-icon="u" >You'r name</label>
+					<input onkeyup="check_params()" id="reg-username" class="uname" name="reg-username"  type="text">
+				</p>
+				<p>
+					<label for="reg-img"  data-icon="u" >You'r img from the internet</label>
+					<input onkeyup="check_params()" id="reg-img" class="uname" name="reg-img"  type="text">
+				</p>
+				<p class="login button">
+					<input id="reg-clicker" type="submit" value="Registration"/>
+				</p>
+				<p>
+					<button class="button-close">close</button>
+				</p>
+			</form>
+		</div>
+		<div class="main">
+			<div class="main-wr">
+				<div class="main-top-wrapper">
+					<ul class="site-addr">
+						<li><a href="">Home</a>/</li>
+						<li><a href="">Moto</a></li>
+					</ul>
+					<div class="img-wr">
+						<img src="./img/clocks.png" alt="">
+					</div>
+				</div>
+				<div class="form-add-post-wrapper">
+					<form id="new-post" onsubmit="return false;">
+						<p>New Lot</p>
+						<div class="form-wr">
+							<p>
+								<label for="goods-name">Lot's name</label>
+								<input onkeyup="check_params()" id="goods-name" name="goods-name"  type="text">
+							</p>
+							<p>
+								<label for="id_section"> Section </label>
+								<select id="id_section" autofocus="true">
+								</select>
+							</p>
+							<p>
+								<label for="goods-img">You'r img </label>
+								<input id="goods-img" type="text">
+							</p>
+							<p>
+								<label for="small-desc">Description</label>
+								<input id="small-desc" type="text">
+							</p>
+						</div>
+						<div class="form-wr">
+							<p>
+								<label for="id_selling"> Type of selling </label>
+								<select id="id_selling" autofocus="true">
+								</select>
+							</p>
+							<p>
+								<label for="goods-number">Number</label>
+								<input id="goods-number" name="goods-number"  type="text">
+							</p>
+							<p>
+								<label for="goods-start-price">Start Price</label>
+								<input id="goods-start-price" name="goods-start-price"  type="text">
+							</p>
+							<p>
+								<label for="goods-now-price">Price for "Buy now!"</label>
+								<input id="goods-now-price" name="goods-start-price"  type="text">
+							</p>
+							<p>
+								<label for="goods-time-days">Days</label>
+								<input id="goods-time-days" name="goods-time-days"  type="text">
+								<label for="goods-time-hours">Hours"</label>
+								<input id="goods-time-hours" name="goods-time-days"  type="text">
+								<label for="goods-time-minutes">Minutes"</label>
+								<input id="goods-time-minutes" name="goods-time-days"  type="text">
+							</p>
+						</div>
+						<div class="form-wr">
+							<p>Paying and delivery</p>
+							<p>
+								<label for="id_pay"> Type of paying </label>
+								<select id="id_pay" autofocus="true">
+								</select>
+							</p>
+							<p>
+								<label for="id_del"> Type of delivery</label>
+								<select id="id_del" autofocus="true">
+								</select>
+							</p>
+						</div>
+						<div class="start-of-auction">
+							<label for="start"> Start of auction</label>
+							<select id="start" autofocus="true"></select>
+						</div>
+						<input type="submit" value="Submit" id="add_new_lot"/>
+					</form>
+					<div class="success-post hide">Thank you for your post! You will see it on the main page or in your account page!</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer>
+		
+	</footer>
+	<script>
+	function check_params() {
+		let login = document.getElementById("reg-login");
+		let pass = document.getElementById("reg-password");
+		let username = document.getElementById("reg-username");
+		document.getElementById("reg-clicker").disabled = login.value && pass.value && username.value ? false : "disabled";
+	}
+	</script>
+     <script src="./bundle.js"></script>
+    </body>
+  </html>

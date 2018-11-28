@@ -1,0 +1,95 @@
+{
+  "menu": [
+      {
+        "id_categ": 0,
+        "name": "auto",
+        "addr":"mike",
+         "subpuncts": [
+            {
+              "name":"tires",
+              "addr":"mike"
+            },
+            {
+              "name":"discs",
+              "subpuncts": [
+            	{
+                  "name":"disk1",
+                  "addr":"mike"
+                },
+                {
+                  "name":"disk2",
+                  "addr":"mike"
+                }
+              ]
+            }
+        ]
+      },
+      {
+        "id_categ": 1,
+        "name": "phones",
+        "addr":"mike",
+         "subpuncts": [
+            {
+              "name":"smartphones",
+              "addr":"mike"
+            },
+            {
+              "name":"simcards",
+              "addr":"mike"
+            },
+            {
+              "name":"accessories",
+              "addr":"mike"
+            }
+       	]
+       },
+       {
+        "id_categ": 2,
+        "name": "phones",
+        "addr":"mike"
+       }
+    ],
+  "type_auctione": [
+      {
+        "id_auction": 0,
+        "name": "Auction with blitz-buy"
+      },
+      {
+        "id_auction": 1,
+        "name": "Buy now!"
+       }
+    ],
+    "type_payment":[
+      {
+        "id_payment": 0,
+        "name": "Cards"
+      },
+      {
+        "id_payment": 1,
+        "name": "Hands!"
+       }
+    ],
+      "type_auctione": [
+      {
+        "id_auction": 0,
+        "name": "Auction with blitz-buy"
+      },
+      {
+        "id_auction": 1,
+        "name": "Buy now!"
+       }
+    ],
+    "type_delivery":[
+      {
+        "id_delivery": 0,
+        "name": "Nova Poshta"
+      },
+      {
+        "id_delivery": 1,
+        "name": "Ukrzaliznicya!"
+       }
+    ]
+}
+
+
+

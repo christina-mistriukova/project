@@ -1,0 +1,26 @@
+{
+  "people": [
+      {
+        "user_id": 0,
+        "log": "bla1",
+    		"pass": 12345,
+    		"img": "./img/small_acc.jpg",
+        "name": "Olga"
+
+      },
+      {
+        "user_id": 1,
+        "log": "bla2",
+    		"pass": 12345,
+    		"img": "/img/small_acc.jpg",
+        "name": "Rybka"
+      },
+      {
+        "user_id": 2,
+        "log": "bla3",
+    		"pass": 12345,
+    		"img": "/img/small_acc.jpg",
+        "name": "Yojik"
+      }
+    ]
+}
