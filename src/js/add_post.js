@@ -129,6 +129,7 @@ button_add_post.addEventListener("click", function() {
   post_id=post_id+1;
 });
 }
+
 function start_time(n) {
 	let obj_date = new Date;
 	let next_date;
@@ -155,15 +156,13 @@ function insert_date(date, numb) {
 
 start_time(5);
 
-//не забудь выщитать время до остановки торгов!!!
-//---------this functions are for painting posts at the main page 
+//---------this functions are for painting posts and pagination at the main page 
 
 let posts = JSON.parse(localStorage.getItem("posts"));
 
 
 
-function paint_one_post(post) {
-		let cards_wr = document.getElementsByClassName("cards-wr")[0];
+function paint_one_post(post, cards_wr) {
 		let c_wr = document.createElement("div");
 		c_wr.classList.add("c-wr");
 		cards_wr.appendChild(c_wr);
@@ -271,13 +270,14 @@ function add_el(el, inner_text, add_class, prnt, before_text) {
 	}
 }
 
-let posts_count = posts.length;
-let per_page = 1; 
-let pages = Math.ceil(posts_count / per_page); 
 
-function paint_post(posts) {
-	for(i in posts){
-		paint_one_post(posts[i])
+
+
+function paint_posts(cards_wr, posts, page_current, posts_per_page) {
+
+	first_post_print = page_current*posts_per_page;
+	for(let i = first_post_print; i < first_post_print + posts_per_page && i < posts.length; i++) { // to what number to print
+		paint_one_post(posts[posts.length - i - 1], cards_wr);
 	}
 }
 
@@ -285,17 +285,68 @@ function not_empty(obj) {
 	if (obj!==null) return true;
 }
 
-function paint_pages(pages) {
-	let paginator = document.getElementsByClassName("pagination")[0];
-	let page = "";
-	for (let i = 0; i < pages; i++) {
-	  page += "<span data-page=" + i * pages + "  id=\"page" + (i + 1) + "\">" + (i + 1) + "</span>";
-	}
-	paginator.innerHTML = page;
+let posts_per_page = 4; 
+let page_num = Math.ceil(posts.length / posts_per_page);
+let page_current = 0;
+
+function reload_posts(){
+	let pagination_block = document.getElementsByClassName("pagination")[0];
+	pagination_block.innerHTML = '';
+	make_magic_pagination(pagination_block, page_current, 2, page_num);
+
+	let cards_wr = document.getElementsByClassName("cards-wr")[0];
+	cards_wr.innerHTML = '';
+	paint_posts(cards_wr, posts, page_current, posts_per_page);
 }
 
-//paint_post(posts_count, per_page, pages);
-paint_post(posts);
+function create_page_button(page_num, text, attribute, to_click){
+	let button = document.createElement("button");
+	button.setAttribute("data-button", page_num);
+	button.innerHTML = text;
+	button.classList.add(attribute);
+
+	if (to_click)
+		button.onclick = (function(e){
+			let button_id = + e.target.dataset.button;
+			page_current = button_id;
+
+			reload_posts();
+
+		});
+
+
+	return button;
+}
+
+
+
+function make_magic_pagination(pagination_block, page_current, buttons_num, page_num) { 
+	button = create_page_button(page_current, page_current+1, "current-page-button", 0);
+	pagination_block.appendChild(button);
+	let i = 0;
+	for (i = page_current+1; i <= page_current+buttons_num && i < page_num; i++){
+		button2 = create_page_button(i, i+1, "page-button", 1);
+		pagination_block.appendChild(button2);
+	}
+	if (i < page_num - 1) {
+		button2 = create_page_button(page_num - 1, "last", "page-button", 1);
+		pagination_block.appendChild(button2);
+	}
+	for (i = page_current-1; i >= 0 && i >= page_current-buttons_num; i--){
+		button2 = create_page_button(i, i+1, "page-button", 1);
+		pagination_block.insertBefore(button2, pagination_block.firstChild);
+	}
+	if (i > 0) {
+		button2 = create_page_button(0, "first", "page-button", 1);
+		pagination_block.insertBefore(button2, pagination_block.firstChild);
+	}
+
+
+}
+
+
+reload_posts();
+
 
 function get_name(id) {
 	let buf_users = localStorage.getItem("user");
@@ -316,23 +367,23 @@ let buttons_wr = document.getElementsByClassName('goods-buttons')[0];
 
 
 
-document.onclick = function(event){
-    event = event || window.event;
-    if (!event.target) {
-        event.target = event.srcElement;
-    }
-    let button = event.target;
-    //console.log(button.classList.contains("button-detail"))
-    let button_id = button.dataset.bid;
+// document.onclick = function(event){
+//     event = event || window.event;
+//     if (!event.target) {
+//         event.target = event.srcElement;
+//     }
+//     let button = event.target;
+//     //console.log(button.classList.contains("button-detail"))
+//     let button_id = button.dataset.bid;
 
-    console.log(button_id)
-    for (i in posts) {
-    console.log("yay")	
-    	if(button.classList.contains("button-detail")) {
-    		let details = document.getElementById(button_id);
-    		console.log(details)
-    		details.classList.remove("hide");
-    	}
-    }
+//     console.log(button_id)
+//     for (i in posts) {
+//     console.log("yay")	
+//     	if(button.classList.contains("button-detail")) {
+//     		let details = document.getElementById(button_id);
+//     		console.log(details)
+//     		details.classList.remove("hide");
+//     	}
+//     }
 
-}
+// }
