@@ -114,10 +114,12 @@ header {
 		border-bottom: 1px solid #cecece;
 		nav {
 			display: flex;
+			justify-content: space-between;
 			flex-wrap: wrap;
 			width: 1200px;
 			max-width: 100%;
 			margin: 0 auto;
+    		align-items: center;
 			ul.menu-wr {
 				margin: 0;
 				padding: 0;
@@ -191,6 +193,21 @@ header {
 		      		}
 		    	}
 		  	}
+		  	p {
+		  		display: flex;
+		  		border: 1px solid #969696;
+				input {
+					outline: none;
+					border: none;
+				}
+				input[type="submit"] {
+					cursor: pointer;
+				    width: 20px; 
+				    height: 20px; 
+				    border: none;
+				    background: url("./bg-img/search.png") no-repeat 50% 50%; 
+				}
+		  	}
 		}
 		.downtag:before {
 		  display: block;
@@ -219,6 +236,7 @@ header {
 
 main {
 	background-color: $main-bg;
+	padding-bottom: 20px;
 	.registration-form {
 		width: 400px;
 		height: 232px;
@@ -231,20 +249,45 @@ main {
 		box-shadow: 0 0 6px 0px #000;
 		z-index: 200;
 	}
-	.main{
+	.main {
 		width: 1200px;
 		max-width: 100%;
 		margin: 0 auto;
 		background-color: #ffffff;
 		border-left: 1px solid #ededed;
 		border-right: 1px solid #ededed;
-		.main-wr{
+		.main-wr {
+			.main-filter-wrapper {
+				padding-top: 50px;
+				.main-filter {
+					.filter {
+						p:first-child {
+							text-align: center;
+							margin-bottom: 20px;
+						}
+						border: 1px solid #ededed;
+    					padding: 20px;
+    					height: 200px;
+						div {
+							margin-bottom: 20px;
+							&.price_filter{
+								display: flex;
+								align-items: center;
+								justify-content: space-between;
+							}
+							label {
+								margin-right: 20px;
+							}
+						}
+					}
+				}
+			}
 			padding: 0 40px;
 			.main-top-wrapper{
 				display: flex;
     			justify-content: space-between;
     			align-items: center;
-				padding-top: 50px;
+				padding-top: 20px;
 				font-size: 20px;
 				ul.site-addr{
 					display: flex;
@@ -391,9 +434,45 @@ main {
 					}
 				}
 			}
+			.pagination {
+				padding: 20px 0;
+				button {
+					cursor: pointer;
+					outline: none;
+					border: none;
+					color: #ffffff;
+					&.current-page-button {
+						background-color: #f74140;
+					}
+				}
+			}
 		}
 	}
 
+}
+
+footer {
+	background-color: #424242;
+	height: 170px;
+	.footer-wrapper {
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		height: inherit;
+    	align-items: center;
+		ul {
+			display:  flex;
+			flex-wrap: wrap;
+			width: 200px;
+    		justify-content: space-between;
+			li {
+				a {
+					text-decoration: none;
+					color: #ffffff;
+				}
+			}
+		}
+	}
 }
 
 

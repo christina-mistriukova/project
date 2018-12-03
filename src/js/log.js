@@ -1,5 +1,3 @@
-//next functions for making recursive menu
-
 
 //---------next functions are for loging
 

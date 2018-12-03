@@ -30,7 +30,7 @@
 				</form>
 			</div>
 			<div class="logo-wr">
-				<img src="./img/logo.png" alt="">
+				<a href="/"><img src="./img/logo.png" alt=""></a>
 				<div class="user-wr hide">
 					<div class="acc-info">
 						<div class="acc-text">Hello, <span id="nick"></span></div>
@@ -50,6 +50,10 @@
 			<nav>
 			  <ul class="menu-wr">
 			  </ul>	
+			  <p>
+				<input id="searching" class="searching_cl" type="search" placeholder="Search">
+				<input type="submit" value="" id="searching-clicker">
+			  </p>
 			</nav>
 		</div>
 	</header>
@@ -83,6 +87,49 @@
 		</div>
 		<div class="main">
 			<div class="main-wr">
+				<div class="main-filter-wrapper">
+					<div class="main-filter">
+<!-- 						<form onsubmit="return false;">
+							<p>Filter</p>
+							<fieldset>
+								<div>
+									<p>Price:</p>
+									<p>
+										<label for="min-price">Min-price</label>
+										<input id="min-price" type="number" placeholder="300$">
+									</p>
+									<p>
+										<label for="max-price">Max-price:</label>
+										<input id="max-price" type="number" placeholder="300$">
+									</p>
+								</div>
+								<div>
+									<p>Paymeth metod</p>
+									<div>
+										<input type="checkbox" id="payment_method_id" name="interest[]">
+										<label for="payment_method">one</label>
+									</div>
+									<div>
+										<input type="checkbox" id="payment_method_id" name="interest[]">
+										<label for="payment_method">two</label>
+									</div>
+								</div>
+								<div>
+									<p>Type of delivery</p>
+									<div>
+										<input type="checkbox" id="delivery" name="interest[]">
+										<label for="music">three</label>
+									</div>
+									<div>
+										<input type="checkbox" id="delivery" name="interest[]">
+										<label for="music">four</label>
+									</div>
+								</div>
+								<input type="submit" id="filter" value="submit">
+							</fieldset>
+						</form> -->
+					</div>
+				</div>
 				<div class="main-top-wrapper">
 					<ul class="site-addr">
 						<li><a href="">Home</a>/</li>
@@ -92,7 +139,7 @@
 						<img src="./img/clocks.png" alt="">
 					</div>
 				</div>
-				<div class="filter-wr">
+<!-- 				<div class="filter-wr">
 					<div class="filter">
 						<span>Quick sort by</span>
 						<select>
@@ -100,7 +147,7 @@
 							<option>Time</option>
 						</select>
 					</div>
-				</div>
+				</div> -->
 				<div class="cards-wr">
 					<div class="c-wr">
 						<div class="img-wr">
@@ -136,27 +183,36 @@
 								<div class="goods-pay"></div>
 								<div class="goods-del"></div>
 							</div>
+							<div class="place-bid">
+								<div class="buy-now-wrapper">
+									<label for="buy-now">Buy now: <span>800$</span></label>
+									<input id="buy-now" class="buy-now" type="number" min="800">
+									<input id="buy-now-clicker" type="submit" value="buy-now"/>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="lazy-loading-wrapper">
-					<button id="lazy-loading">Load more</button>
-				</div>
+				<div class="clocks-wr"></div>
 				<div class="pagination"></div>
 			</div>
 		</div>
 	</main>
 	<footer>
-		
+		<div class="footer-wrapper">
+			<ul>
+				<li><a href="/about_us">About us</a></li>
+				<li><a href="/gallery">Gallery</a></li>
+				<li><a href="/contacts">Contacts</a></li>
+			</ul>
+			<div class="logo-wrapper">
+				<img src="./img/logo_black.png" alt="">
+			</div>
+		</div>
 	</footer>
-     <script src="./bundle.js"></script>
-     <script>
-    function check_params() {
-	  let login = document.getElementById("reg-login");
-	  let pass = document.getElementById("reg-password");
-	  let username = document.getElementById("reg-username");
-	  document.getElementById("reg-clicker").disabled = login.value && pass.value && username.value ? false : "disabled";
-	}
-	</script>
+    <script src="./bundle.js"></script>
+    <script src="./js/search.js"></script>
+    <script src="./js/add_post.js"></script>
+	<script src-"./js/check_params"></script>
     </body>
   </html>

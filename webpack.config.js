@@ -19,14 +19,6 @@
           to: "/views/index.html"
         },
         {
-          from: /tm2/,
-          to: "/views/tm2.html"
-        },
-        {
-          from: /mike/,
-          to: "/views/mike.html"
-        },
-        {
           from: /add_posts/,
           to: "/views/add_posts.html"
         }
@@ -36,7 +28,6 @@
 
    module: {
      rules: [
-     // {type: 'javascript/auto'},
        {
          test: /\.css$|\.scss$/,
          use: [

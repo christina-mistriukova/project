@@ -1,52 +1,60 @@
 {
   "menu": [
       {
-        "id_categ": 0,
-        "name": "auto",
-        "addr":"mike",
+        "id_parent": 0 ,
+        "id": 1,
+        "name": "childen's goods",
+        "addr":"/?menu_id=1",
          "subpuncts": [
             {
-              "name":"tires",
-              "addr":"mike"
+              "id_parent": 1,
+              "id": 2,
+              "name":"soft goods"
             },
             {
-              "name":"discs",
+              "id_parent": 1,
+              "id": 3,
+              "name":"plastic toys",
               "subpuncts": [
-            	{
-                  "name":"disk1",
-                  "addr":"mike"
+            	{              
+                  "id_parent": 3,
+                  "id": 4,
+                  "name":"eco-plastic"
                 },
-                {
-                  "name":"disk2",
-                  "addr":"mike"
+                { "id_parent": 3,
+                  "id": 10,
+                  "name":"plastic"
                 }
               ]
             }
         ]
       },
       {
-        "id_categ": 1,
-        "name": "phones",
-        "addr":"mike",
+        "id_parent": 0 ,
+        "id": 5,
+        "name": "technics",
          "subpuncts": [
             {
-              "name":"smartphones",
-              "addr":"mike"
+              "id_parent": 5 ,
+              "id": 6,
+              "name":"smartphones"
             },
             {
-              "name":"simcards",
-              "addr":"mike"
+              "id_parent": 5 ,
+              "id": 7,
+              "name":"computers"
             },
             {
-              "name":"accessories",
-              "addr":"mike"
+              "id_parent": 5 ,
+              "id": 8,
+              "name":"accessories"
             }
        	]
        },
        {
-        "id_categ": 2,
-        "name": "phones",
-        "addr":"mike"
+        "id_parent": 0 ,
+        "id": 9,
+        "name": "Automobiles"
        }
     ],
   "type_auctione": [
@@ -61,31 +69,21 @@
     ],
     "type_payment":[
       {
-        "id_payment": 0,
+        "id": 0,
         "name": "Cards"
       },
       {
-        "id_payment": 1,
+        "id": 1,
         "name": "Hands!"
-       }
-    ],
-      "type_auctione": [
-      {
-        "id_auction": 0,
-        "name": "Auction with blitz-buy"
-      },
-      {
-        "id_auction": 1,
-        "name": "Buy now!"
        }
     ],
     "type_delivery":[
       {
-        "id_delivery": 0,
+        "id": 0,
         "name": "Nova Poshta"
       },
       {
-        "id_delivery": 1,
+        "id": 1,
         "name": "Ukrzaliznicya!"
        }
     ]

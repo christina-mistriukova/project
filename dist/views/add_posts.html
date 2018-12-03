@@ -12,15 +12,11 @@
 				<form id="enter-form" class="hide" onsubmit="return false;">
 					<p>
 						<label for="username">Login</label>
-						<input id="username" class="uname" name="username"  type="text" placeholder="log">
+						<input id="username" class="uname" name="username"  type="text" onkeyup="check_params()" placeholder="log">
 					</p>
 					<p>
 						<label for="password"  data-icon="p">Password </label>
 						<input id="password" class="youpasswd" name="password"  type="password" />
-					</p>
-					<p class="keeplogin">
-						<input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" />
-						<label for="loginkeeping">Keep me logged in</label>
 					</p>
 					<p class="login button">
 						<input type="submit" value="Login" id="clicker"/>
@@ -34,7 +30,7 @@
 				</form>
 			</div>
 			<div class="logo-wr">
-				<img src="./img/logo.png" alt="">
+				<a href="/"><img src="./img/logo.png" alt=""></a>
 				<div class="user-wr hide">
 					<div class="acc-info">
 						<div class="acc-text">Hello, <span id="nick"></span></div>
@@ -54,6 +50,10 @@
 			<nav>
 			  <ul class="menu-wr">
 			  </ul>	
+			  <p>
+				<input id="searching" class="searching_cl" type="search" placeholder="Search">
+				<input type="submit" value="" id="searching-clicker">
+			  </p>
 			</nav>
 		</div>
 	</header>
@@ -102,7 +102,7 @@
 						<div class="form-wr">
 							<p>
 								<label for="goods-name">Lot's name</label>
-								<input onkeyup="check_params()" id="goods-name" name="goods-name"  type="text">
+								<input onkeyup="check_form_add_post()" id="goods-name" name="goods-name"  type="text">
 							</p>
 							<p>
 								<label for="id_section"> Section </label>
@@ -126,23 +126,23 @@
 							</p>
 							<p>
 								<label for="goods-number">Number</label>
-								<input id="goods-number" name="goods-number"  type="text">
+								<input id="goods-number" name="goods-number"  type="number">
 							</p>
 							<p>
 								<label for="goods-start-price">Start Price</label>
-								<input id="goods-start-price" name="goods-start-price"  type="text">
+								<input id="goods-start-price" onkeyup="check_form_add_post()" name="goods-start-price"  type="number">
 							</p>
 							<p>
 								<label for="goods-now-price">Price for "Buy now!"</label>
-								<input id="goods-now-price" name="goods-start-price"  type="text">
+								<input id="goods-now-price" onkeyup="check_form_add_post()" name="goods-now-price"  type="number">
 							</p>
 							<p>
 								<label for="goods-time-days">Days</label>
-								<input id="goods-time-days" name="goods-time-days"  type="text">
+								<input id="goods-time-days" onkeyup="check_form_add_post()" name="goods-time-days"  type="number">
 								<label for="goods-time-hours">Hours"</label>
-								<input id="goods-time-hours" name="goods-time-days"  type="text">
+								<input id="goods-time-hours" name="goods-time-hours" type="number" onkeyup="check_form_add_post()">
 								<label for="goods-time-minutes">Minutes"</label>
-								<input id="goods-time-minutes" name="goods-time-days"  type="text">
+								<input id="goods-time-minutes" name="goods-time-minutes"  type="number" onkeyup="check_form_add_post()">
 							</p>
 						</div>
 						<div class="form-wr">
@@ -170,16 +170,19 @@
 		</div>
 	</main>
 	<footer>
-		
+		<div class="footer-wrapper">
+			<ul>
+				<li><a href="/about_us">About us</a></li>
+				<li><a href="/gallery">Gallery</a></li>
+				<li><a href="/contacts">Contacts</a></li>
+			</ul>
+			<div class="logo-wrapper">
+				<img src="./img/logo_black.png" alt="">
+			</div>
+		</div>
 	</footer>
-	<script>
-	function check_params() {
-		let login = document.getElementById("reg-login");
-		let pass = document.getElementById("reg-password");
-		let username = document.getElementById("reg-username");
-		document.getElementById("reg-clicker").disabled = login.value && pass.value && username.value ? false : "disabled";
-	}
-	</script>
-     <script src="./bundle.js"></script>
+	<script src="./js/check_params.js"></script>
+	<script src="./js/get_post_form.js"></script>
+    <script src="./bundle.js"></script>
     </body>
   </html>

@@ -25,7 +25,7 @@ function insert_elements(data) {
     li.appendChild(a);
     a.innerHTML = data["menu"][i]["name"]; 
     a.setAttribute("class", "downtag");
-    a.setAttribute("href", data["menu"][i]["addr"]);
+    a.setAttribute("href", "/?menu_id=" + data["menu"][i]["id"]);
     ul.appendChild(li);
     if (data["menu"][i].hasOwnProperty("subpuncts")) {
       let ul2 = document.createElement("ul");
@@ -41,7 +41,7 @@ function recurs_menu (puncts, ul) {
     let a = document.createElement("a");
     li.appendChild(a);
     a.innerHTML = puncts[i]["name"]; 
-    a.setAttribute("href", puncts[i]["addr"]);
+    a.setAttribute("href", "/?menu_id=" + puncts[i]["id"]);
     ul.appendChild(li);
     if (puncts[i].hasOwnProperty("subpuncts")) {
     li.setAttribute("class", "righttag");
