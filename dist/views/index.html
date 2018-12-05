@@ -35,7 +35,7 @@
 					<div class="acc-info">
 						<div class="acc-text">Hello, <span id="nick"></span></div>
 						<div class="header-click">
-							<button>Account</button>
+							<button class="icon" id="my-posts">My posts</button>
 							<button id="log-out">Logout</button>
 			  				<a href="/add_posts" class="add-from-user">Add posts</a>	
 						</div>
@@ -87,49 +87,6 @@
 		</div>
 		<div class="main">
 			<div class="main-wr">
-				<div class="main-filter-wrapper">
-					<div class="main-filter">
-<!-- 						<form onsubmit="return false;">
-							<p>Filter</p>
-							<fieldset>
-								<div>
-									<p>Price:</p>
-									<p>
-										<label for="min-price">Min-price</label>
-										<input id="min-price" type="number" placeholder="300$">
-									</p>
-									<p>
-										<label for="max-price">Max-price:</label>
-										<input id="max-price" type="number" placeholder="300$">
-									</p>
-								</div>
-								<div>
-									<p>Paymeth metod</p>
-									<div>
-										<input type="checkbox" id="payment_method_id" name="interest[]">
-										<label for="payment_method">one</label>
-									</div>
-									<div>
-										<input type="checkbox" id="payment_method_id" name="interest[]">
-										<label for="payment_method">two</label>
-									</div>
-								</div>
-								<div>
-									<p>Type of delivery</p>
-									<div>
-										<input type="checkbox" id="delivery" name="interest[]">
-										<label for="music">three</label>
-									</div>
-									<div>
-										<input type="checkbox" id="delivery" name="interest[]">
-										<label for="music">four</label>
-									</div>
-								</div>
-								<input type="submit" id="filter" value="submit">
-							</fieldset>
-						</form> -->
-					</div>
-				</div>
 				<div class="main-top-wrapper">
 					<ul class="site-addr">
 						<li><a href="">Home</a>/</li>
@@ -139,15 +96,28 @@
 						<img src="./img/clocks.png" alt="">
 					</div>
 				</div>
-<!-- 				<div class="filter-wr">
-					<div class="filter">
-						<span>Quick sort by</span>
-						<select>
-							<option>Bids</option>
-							<option>Time</option>
-						</select>
+				<div class="main-filter-wrapper">
+					<div class="main-filter">
 					</div>
-				</div> -->
+				</div>
+				<div class="checkboxes-wrapper hide">
+					<p class="user-filter">
+						<input type="radio" checked name="user_filter" id="my_bets"/>
+						<label for="my_bets">My Bets</label> 
+					</p>
+					<p class="user-filter">
+						<input type="radio" name="user_filter" id="my_purch"/>
+						<label for="my_purch">My purchases</label>
+					</p>
+					<p class="user-filter">
+						<input type="radio" name="user_filter" id="my_lots"/>
+						<label for="my_lots">My Active Lots</label>
+					</p>
+					<p class="user-filter">
+						<input type="radio" name="user_filter" id="my_history"/>
+						<label for="my_history">My Lots History</label>
+					</p>
+				</div>
 				<div class="cards-wr">
 					<div class="c-wr">
 						<div class="img-wr">
@@ -213,6 +183,13 @@
     <script src="./bundle.js"></script>
     <script src="./js/search.js"></script>
     <script src="./js/add_post.js"></script>
-	<script src-"./js/check_params"></script>
+	<script>
+		function check_params() {
+			let login = document.getElementById("reg-login");
+			let pass = document.getElementById("reg-password");
+			let username = document.getElementById("reg-username");
+			document.getElementById("reg-clicker").disabled = login.value && pass.value && username.value ? false : "disabled";
+		}	
+	</script>
     </body>
   </html>

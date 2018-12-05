@@ -21,9 +21,30 @@ let main_menu = rq(menu);
 
 let all_posts = JSON.parse(localStorage.getItem("posts"));
 let posts = all_posts;
-// localStorage.removeItem(posts[7])
+//localStorage.removeItem("posts")
 
 var deadline;
+
+//console.log(check_time(posts[9]));
+
+function check_time(post){
+	deadline =new Date();
+	let time_to_death = ( ( parseInt(post["days"])*24+parseInt(post["hours"]) ) * 60 + parseInt(post["minutes"])) * 60 * 1000;
+	deadline.setTime(post["date"] + time_to_death);
+	let t = Date.parse(deadline) - Date.parse(new Date());
+	if (t <= 0) return false;
+	return true;
+}
+
+function update_posts_timing(){
+	posts = JSON.parse(localStorage.getItem("posts")) || [];
+	for (i in posts){
+		if (!check_time(posts[i])) posts[i]["is_ended"] = true;
+	}
+
+	localStorage.setItem("posts", JSON.stringify(posts));
+	all_posts = posts;
+}
 
 function paint_one_post(post, cards_wr) {
 		let c_wr = document.createElement("div");
@@ -46,6 +67,7 @@ function paint_one_post(post, cards_wr) {
 		goods_headline_wr.classList.add("goods-headline-wr");
 		goods_descr_wr.appendChild(goods_headline_wr);
 		let p = document.createElement("p");
+		
 		let span = document.createElement("span");
 		span.innerHTML = post["number_of_bids"];
 		p.innerHTML = post["goods_name"];
@@ -87,7 +109,7 @@ function paint_one_post(post, cards_wr) {
 
 		deadline.setTime(post["date"] + time_to_death);
 
-		initializeClock(clock_block, deadline);
+		initializeClock(clock_block, deadline, post["is_ended"]);
 
 		
 		ul.appendChild(li2);
@@ -100,14 +122,132 @@ function paint_one_post(post, cards_wr) {
 		let button_bid = document.createElement("button");
 		button_bid.classList.add("button-bid");
 		button_bid.innerHTML = "Place Bit";
-		button_bid.setAttribute("data-bid",post["id"]);
+		button_bid.setAttribute("data-bid", post["id"]);
 		let span2 = document.createElement("span");
 		span2.innerHTML = "or";
 		goods_buttons.appendChild(button_bid);
 		goods_buttons.appendChild(span2);
 
-		button_bid.addEventListener("click", function(){
-		   bid(button_bid);
+		let place_bid = document.createElement("div");
+		place_bid.classList.add("place-bid");
+		goods_descr_wr.appendChild(place_bid);
+
+		let min_bid = document.createElement("div");
+		min_bid.classList.add("min-bid-wrapper");
+		place_bid.appendChild(min_bid);
+
+		//bet placing 
+
+		let lbl = document.createElement("lable");
+		lbl.innerHTML = "Your bid: ";
+
+		let input = document.createElement("input");
+		input.setAttribute("id", "input"+post["id"]);
+		input.setAttribute("data-minbid", post["id"]);
+		input.setAttribute("type", "number");
+		input.classList.add("min-bid");
+		input.setAttribute("placeholder", post["current_bid"]) //current bid
+		input.setAttribute("min", post["current_bid"]) //current bid
+		min_bid.appendChild(lbl);
+		min_bid.appendChild(lbl);
+		min_bid.appendChild(input);
+
+		let min_bid_submit = document.createElement("div");
+		min_bid_submit.classList.add("min-bid-submit");
+		let lbl_sub = document.createElement("div");
+		lbl_sub.setAttribute("for", post["id"]);
+
+		let inpt = document.createElement("input");
+		inpt.setAttribute("id", "submit"+post["id"]);
+		inpt.setAttribute("data-minbidsubmit", post["id"]);
+		inpt.setAttribute("class","min-bid-sub");
+		inpt.setAttribute("type","submit");
+		inpt.setAttribute("value","submit");
+
+		let div_message_about_bidding = document.createElement("div");
+		goods_descr_wr.appendChild(div_message_about_bidding);
+		let p_sold_out = document.createElement("div");
+		p_sold_out.innerHTML = "Sold Out";
+		if (post["is_ended"]) {
+			goods_headline_wr.appendChild(p_sold_out);
+		}
+
+		let p_your_bet = document.createElement("div");
+		p_your_bet.innerHTML = "Your Bet";
+		let is_user_bet = false;
+		let user_in = JSON.parse(localStorage.getItem("user_in"));
+		if (user_in!==null && post["bid_history"].length > 0 && post["bid_history"][post["bid_history"].length-1]["user_id"] == user_in["user_id"]) {
+			goods_headline_wr.appendChild(p_your_bet);
+			is_user_bet = true;
+		}
+			
+
+		inpt.addEventListener("click", function() { 
+		    let bid_val_concat = "input".concat(post["id"])
+			let bid_val = parseInt(document.getElementById(bid_val_concat).value);
+			//console.log(typeof(post["current_bid"]))
+			if(!check_time(post)) {
+				div_message_about_bidding.innerHTML = "Time is run out. You can't bid anymore!";
+				place_bid.classList.add("hide");
+				return;
+			}
+			if(post["is_ended"]) {
+				div_message_about_bidding.innerHTML = "This lot is already bought!";
+				place_bid.classList.add("hide");
+				return;
+			}
+			if (bid_val <= post["current_bid"] && post["number_of_bids"] > 0) {
+				div_message_about_bidding.innerHTML = "Your bid is too small";
+				place_bid.classList.add("hide");
+				return;
+			}
+			if (bid_val >= parseInt(post["goods_now_price"])){
+				console.log(post["goods_now_price"]);
+				post["is_ended"] = true;
+				goods_headline_wr.appendChild(p_sold_out);
+				div_message_about_bidding.innerHTML = "Congrats! Your bid is enough for buying now. So you won the auction with bid "+post["goods_now_price"]+"$!";
+				bid_val = post["goods_now_price"];
+			}
+			else {
+				div_message_about_bidding.innerHTML = "Your bet is made!";
+			}
+			if (!is_user_bet) {
+				goods_headline_wr.appendChild(p_your_bet);
+				is_user_bet = true;
+			}
+			li2.innerHTML = bid_val;
+			post["current_bid"] = bid_val;
+			post["number_of_bids"]++;
+			posts = make_bid(button_bid.dataset.bid, bid_val);
+			span.innerHTML = post["number_of_bids"];
+			place_bid.classList.add("hide");
+				
+		});
+
+		place_bid.appendChild(min_bid_submit);
+		
+		min_bid_submit.appendChild(inpt);
+
+		let buy_now_wrapper = document.createElement("div");
+		buy_now_wrapper.classList.add("buy-now-wrapper");
+		let lbl_buy_now = document.createElement("label");
+		let span3 = document.createElement("span");
+		span3.innerHTML = post["goods_now_price"];
+		lbl_buy_now.innerHTML = "Buy now:"+" ";
+		 // now_price
+		lbl_buy_now.appendChild(span3);
+		buy_now_wrapper.appendChild(lbl_buy_now);
+		let inpt_buy_now = document.createElement("input");
+		inpt_buy_now.setAttribute("id", "now".concat(post["id"]));
+		inpt_buy_now.setAttribute("type", "submit");
+		inpt_buy_now.setAttribute("value", "submit");
+		buy_now_wrapper.appendChild(inpt_buy_now);
+		place_bid.appendChild(buy_now_wrapper);
+		place_bid.classList.add("hide");
+		place_bid.setAttribute("data-bid", post["id"]);
+
+		button_bid.addEventListener("click", function() {
+		    bid(button_bid);
 		}, true);
 
 		let button_detail = document.createElement("button");
@@ -137,63 +277,6 @@ function paint_one_post(post, cards_wr) {
 		add_el("div", post["goods_pay"], "goods-pay", view_detail_wrapper,"Payment method");
 
 		add_el("div", post["goods_del"], "goods-del", view_detail_wrapper,"Delivery");
-
-		let place_bid = document.createElement("div");
-		place_bid.classList.add("place-bid");
-		goods_descr_wr.appendChild(place_bid);
-
-		let min_bid = document.createElement("div");
-		min_bid.classList.add("min-bid-wrapper");
-		place_bid.appendChild(min_bid);
-
-		let lbl = document.createElement("lable");
-		lbl.setAttribute("for","min-bid");
-		lbl.innerHTML = "Your bid: ";
-		
-
-		let input = document.createElement("input");
-		input.setAttribute("id", "min-bid");
-		input.setAttribute("type", "number");
-		input.classList.add("min-bid");
-		input.setAttribute("placeholder", post["current_bid"]) //current bid
-		input.setAttribute("min", post["current_bid"]) //current bid
-		min_bid.appendChild(lbl);
-		min_bid.appendChild(lbl);
-		min_bid.appendChild(input);
-
-		let min_bid_submit = document.createElement("div");
-		min_bid_submit.classList.add("min-bid-submit");
-		let lbl_sub = document.createElement("div");
-		lbl_sub.setAttribute("for", "min-bid-sub");
-
-		let inpt = document.createElement("input");
-		inpt.setAttribute("id","min-bid-sub");
-		inpt.setAttribute("class","min-bid-sub");
-		inpt.setAttribute("type","submit");
-		inpt.setAttribute("value","submit");
-
-		place_bid.appendChild(min_bid_submit);
-		
-		min_bid_submit.appendChild(inpt);
-
-		let buy_now_wrapper = document.createElement("div");
-		buy_now_wrapper.classList.add("buy-now-wrapper");
-		let lbl_buy_now = document.createElement("label");
-		lbl_buy_now.setAttribute("for", "but-now");
-		let span3 = document.createElement("span");
-		span3.innerHTML = post["goods_now_price"];
-		lbl_buy_now.innerHTML = "Buy now:"+" ";
-		 // now_price
-		lbl_buy_now.appendChild(span3);
-		buy_now_wrapper.appendChild(lbl_buy_now);
-		let inpt_buy_now = document.createElement("input");
-		inpt_buy_now.setAttribute("id", "buy-now");
-		inpt_buy_now.setAttribute("type", "submit");
-		inpt_buy_now.setAttribute("value", "submit");
-		buy_now_wrapper.appendChild(inpt_buy_now);
-		place_bid.appendChild(buy_now_wrapper);
-		place_bid.classList.add("hide");
-		place_bid.setAttribute("data-bid", post["id"])
 
 }
 
@@ -329,6 +412,23 @@ function show_hide(block) {
 	}
 }
 
+
+
+function show_user_filter() {
+	let user_filter_block = document.getElementsByClassName("checkboxes-wrapper")[0]; 
+	user_filter_block.classList.remove("hide");
+	let user_filter_p = user_filter_block.getElementsByClassName("user-filter");
+
+	for (let i = 0; i < user_filter_p.length; i++) {
+		//console.log(i)
+		user_filter_p[i].addEventListener("click", function(){
+			page_current = 0;
+			posts = filtering();
+			reload_posts();
+		});
+	}
+}
+
 function create_timer(parent_block) {
 
 	let clockdiv = document.createElement("div");
@@ -399,31 +499,42 @@ function getTimeRemaining(endtime) {
   };
 }
 
-function initializeClock(clock, endtime) {
-  let daysSpan = clock.querySelector('.days');
-  let hoursSpan = clock.querySelector('.hours');
-  let minutesSpan = clock.querySelector('.minutes');
-  let secondsSpan = clock.querySelector('.seconds');
+function initializeClock(clock, endtime, is_ended) {
 
-  function updateClock() {
-    var t = getTimeRemaining(endtime);
+  if (getTimeRemaining(endtime).total > 0 && !is_ended) {
+  	  let daysSpan = clock.querySelector('.days');
+      let hoursSpan = clock.querySelector('.hours');
+  	  let minutesSpan = clock.querySelector('.minutes');
+  	  let secondsSpan = clock.querySelector('.seconds');
+	  function updateClock() {
+	    var t = getTimeRemaining(endtime);
 
-    daysSpan.innerHTML = t.days;
-    hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
-    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
-    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+	    daysSpan.innerHTML = t.days;
+	    hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+	    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+	    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
 
-    if (t.total <= 0) {
-      clearInterval(timeinterval);
-    }
+	    if (t.total <= 0) {
+	      clearInterval(timeinterval);
+	    }
+	  }
+	  updateClock();
+	  let timeinterval = setInterval(updateClock, 1000);
+  } 
+  else {
+  	clock.innerHTML = "Ended";
   }
-  updateClock();
-  let timeinterval = setInterval(updateClock, 1000);
 }
 
 //--------------------next functions are for generating adress and make search
+
+
 function filtering(){
+	update_posts_timing();
+
 	let result = all_posts;
+	
+	//console.log(user_in);
 
 	//---------------------------searching
 
@@ -485,6 +596,69 @@ function filtering(){
 		});
 	}
 
+	let show_ended = false;
+
+	let u_id = get_url_vars()["u_id"];
+
+	if (typeof(u_id)!=="undefined") {
+		let user_in = JSON.parse(localStorage.getItem("user_in"));
+		
+		if (user_in!==null){
+
+			let ratio_my_bets = document.getElementById("my_bets");
+
+			if (ratio_my_bets.checked){
+				show_ended = false;
+				result = filter_posts(result, user_in, function (post, user_in) {
+					for (let i = 0; i < post["bid_history"].length; i++) {
+						if (post["bid_history"][i]["user_id"] == user_in["user_id"]) {
+							return true;
+						}
+					}
+					return false;
+				});
+			}
+			
+			let ratio_my_purch = document.getElementById("my_purch");
+
+			if (ratio_my_purch.checked){
+				show_ended = true;
+				result = filter_posts(result, user_in, function (post, user_in) {
+					return (post["is_ended"] && post["bid_history"].length > 0 && post["bid_history"][post["bid_history"].length-1]["user_id"] == user_in["user_id"]);  
+				});
+			}
+
+			let ratio_my_lots = document.getElementById("my_lots");
+
+			if (ratio_my_lots.checked){
+				show_ended = false;
+				result = filter_posts(result, user_in, function (post, user_in) {
+					return post["u_id"] == user_in["user_id"];  
+				});
+			}
+
+			let ratio_my_history = document.getElementById("my_history");
+
+			if (ratio_my_history.checked){
+				show_ended = true;
+				result = filter_posts(result, user_in, function (post, user_in) {
+					return post["is_ended"] && post["u_id"] == user_in["user_id"];  
+				});
+			}
+			// result = filter_posts(result, user_in, function (post, user_in) {
+			// 	return post["u_id"]==user_in["user_id"];				
+			// });
+		}
+	}
+
+	if (!show_ended){
+		result = filter_posts(result, show_ended, function (post, show_ended) {
+				return post["is_ended"]==false;
+			});
+	}
+
+	console.log(result);
+
 	return result;
 }
 
@@ -532,6 +706,7 @@ function recurs_id(id_category, data) {
 	return result;
 }
 
+update_posts_timing();
 paint_filter();
 
 posts = filtering();
@@ -548,6 +723,16 @@ function paint_filter() {
 		max_pr = prices[0];
 		min_pr = prices[1];
 	}
+
+	let is_user_filter = get_url_vars()["u_id"];
+
+	if (typeof(is_user_filter)!=="undefined") {
+		
+		let user_in = JSON.parse(localStorage.getItem("user_in"));
+		console.log("here");
+		if (user_in != null) show_user_filter();
+	}
+	
 
 	let main_wr = document.getElementsByClassName("main-filter")[0];
 	let main_filter = document.createElement("div");
@@ -680,4 +865,47 @@ btn_sbm_filter.addEventListener("click", function() {
 	reload_posts();
 	
 });
+
+
+// let btn_my_posts = document.getElementById("my-posts");
+
+// btn_my_posts.addEventListener("click", function() {
+// 	page_current = 0;
+// 	posts = filtering();
+// 	console.log(posts)
+// 	reload_posts();
+// });
+
+
+//-----------------------make bid
+
+function make_bid(id, val) {
+	//console.log(val)
+	//let old_items = JSON.parse(localStorage.getItem("posts")) || [];
+
+
+	//let posts = all_posts;
+	let posts = JSON.parse(localStorage.getItem("posts")) || [];
+	// let count_bidds = document.get
+	let user_in = JSON.parse(localStorage.getItem("user_in"));
+	
+
+	for (i in posts) {
+		if (posts[i]["id"]==id) {
+			posts[i]["current_bid"] = val;
+			// posts[i]["bid_history"][posts[i]["bid_history"].length] = [{"user_id": user_in["user_id"], "bid": val}];
+			posts[i]["bid_history"].push({"user_id": user_in["user_id"], "bid": val});
+			posts[i]["number_of_bids"] = posts[i]["bid_history"].length;
+			if (val >= posts[i]["goods_now_price"]) posts[i]["is_ended"] = true;
+		}
+	}
+
+	localStorage.setItem("posts", JSON.stringify(posts));
+
+	return posts;
+}
+
+// 
+// old_items.push(post);
+// localStorage.setItem("posts", JSON.stringify(old_items));
 

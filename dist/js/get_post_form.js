@@ -113,6 +113,8 @@ if (button_add_post!==null) {
 			"number_of_bids": 0,
 			"small_desc": small_desc,
 			"date": get_date(),
+			"bid_history": [],
+			"is_ended": false
 	    }
 	    old_items.push(post);
 	    localStorage.setItem("posts", JSON.stringify(old_items));

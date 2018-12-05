@@ -31,7 +31,6 @@ button.addEventListener("click", function(){
   let login = get_value("username");
   let pass = get_value("password");
 
-
   let buf = 0;
   let log_user;
   for (key in users) {
@@ -48,6 +47,7 @@ button.addEventListener("click", function(){
         "img": users[key]["img"]
       }
       localStorage.setItem("user_in", JSON.stringify(log_user));
+
       break;
     } 
   }
@@ -58,9 +58,12 @@ button.addEventListener("click", function(){
 });
 
 
+
+
 button_log_out.addEventListener("click", function(){
   let user_wr = document.getElementsByClassName("user-wr")[0];
   let pass = document.getElementById("password");
+  window.location="/";
   if (!user_wr.classList.contains("hide")) {
     user_wr.classList.add("hide");
     form_wr.classList.remove("hide");
