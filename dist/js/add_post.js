@@ -25,9 +25,7 @@ let posts = all_posts;
 
 var deadline;
 
-//console.log(check_time(posts[9]));
-
-function check_time(post){
+function check_time(post){  //returns false if time is ended
 	deadline =new Date();
 	let time_to_death = ( ( parseInt(post["days"])*24+parseInt(post["hours"]) ) * 60 + parseInt(post["minutes"])) * 60 * 1000;
 	deadline.setTime(post["date"] + time_to_death);
@@ -36,7 +34,7 @@ function check_time(post){
 	return true;
 }
 
-function update_posts_timing(){
+function update_posts_timing(){ //updates all posts  
 	posts = JSON.parse(localStorage.getItem("posts")) || [];
 	for (i in posts){
 		if (!check_time(posts[i])) posts[i]["is_ended"] = true;
@@ -164,6 +162,8 @@ function paint_one_post(post, cards_wr) {
 		inpt.setAttribute("type","submit");
 		inpt.setAttribute("value","submit");
 
+		//setting Sold Out , Your Bet Marks
+
 		let div_message_about_bidding = document.createElement("div");
 		goods_descr_wr.appendChild(div_message_about_bidding);
 		let p_sold_out = document.createElement("div");
@@ -237,11 +237,6 @@ function paint_one_post(post, cards_wr) {
 		 // now_price
 		lbl_buy_now.appendChild(span3);
 		buy_now_wrapper.appendChild(lbl_buy_now);
-		let inpt_buy_now = document.createElement("input");
-		inpt_buy_now.setAttribute("id", "now".concat(post["id"]));
-		inpt_buy_now.setAttribute("type", "submit");
-		inpt_buy_now.setAttribute("value", "submit");
-		buy_now_wrapper.appendChild(inpt_buy_now);
 		place_bid.appendChild(buy_now_wrapper);
 		place_bid.classList.add("hide");
 		place_bid.setAttribute("data-bid", post["id"]);
@@ -270,7 +265,7 @@ function paint_one_post(post, cards_wr) {
 				
 		// add_el("div", post["goods_sell"], "goods-sell", view_detail_wrapper,""); blitz or auction
 
-		add_el("div", post["goods_number"], "goods-number", view_detail_wrapper,"Number of goods");
+		// add_el("div", post["goods_number"], "goods-number", view_detail_wrapper,"Number of goods");
 
 		add_el("div", post["goods_start_price"], "goods-start-price", view_detail_wrapper,"Start price");
 
@@ -300,11 +295,6 @@ function paint_posts(cards_wr, posts, page_current, posts_per_page) {
 	for(let i = first_post_print; i < first_post_print + posts_per_page && i < posts.length; i++) { // to what number to print
 		paint_one_post(posts[posts.length - i - 1], cards_wr);
 	}
-}
-
-
-function not_empty(obj) {
-	if (obj!==null) return true;
 }
 
 let posts_per_page = 4; 
@@ -420,7 +410,6 @@ function show_user_filter() {
 	let user_filter_p = user_filter_block.getElementsByClassName("user-filter");
 
 	for (let i = 0; i < user_filter_p.length; i++) {
-		//console.log(i)
 		user_filter_p[i].addEventListener("click", function(){
 			page_current = 0;
 			posts = filtering();
@@ -444,6 +433,7 @@ function create_timer(parent_block) {
 	div1.appendChild(span)
 
 	let div2  = document.createElement("div");
+	div2.innerHTML="&nbsp;"+"Days"+"&nbsp;";
 	div2.classList.add("smalltext");
 	div1.appendChild(div2);
 
@@ -457,6 +447,7 @@ function create_timer(parent_block) {
 
 	let div4  = document.createElement("div");
 	div4.classList.add("smalltext");
+	div4.innerHTML=":";
 	div3.appendChild(div4);
 
 	let div5 = document.createElement("div");
@@ -468,6 +459,7 @@ function create_timer(parent_block) {
 	div5.appendChild(span3)
 	let div6  = document.createElement("div");
 	div6.classList.add("smalltext");
+	div6.innerHTML =":";
 	div5.appendChild(div6);
 
 	let div7 = document.createElement("div");
@@ -657,7 +649,7 @@ function filtering(){
 			});
 	}
 
-	console.log(result);
+	// console.log(result);
 
 	return result;
 }
@@ -777,9 +769,7 @@ function paint_filter() {
 
 	let btn_sbm_filter = document.createElement("button");
 	btn_sbm_filter.setAttribute("type", "submit");
-	// btn_sbm_filter.setAttribute("onsubmit", "return false;");
 
-	//btn_sbm_filter.setAttribute("type", "submit");
 	btn_sbm_filter.setAttribute("id", "btn_sbm_filter");
 	btn_sbm_filter.innerHTML = "Submit";
 
@@ -867,33 +857,15 @@ btn_sbm_filter.addEventListener("click", function() {
 });
 
 
-// let btn_my_posts = document.getElementById("my-posts");
-
-// btn_my_posts.addEventListener("click", function() {
-// 	page_current = 0;
-// 	posts = filtering();
-// 	console.log(posts)
-// 	reload_posts();
-// });
-
-
 //-----------------------make bid
 
 function make_bid(id, val) {
-	//console.log(val)
-	//let old_items = JSON.parse(localStorage.getItem("posts")) || [];
-
-
-	//let posts = all_posts;
 	let posts = JSON.parse(localStorage.getItem("posts")) || [];
-	// let count_bidds = document.get
 	let user_in = JSON.parse(localStorage.getItem("user_in"));
-	
 
 	for (i in posts) {
 		if (posts[i]["id"]==id) {
 			posts[i]["current_bid"] = val;
-			// posts[i]["bid_history"][posts[i]["bid_history"].length] = [{"user_id": user_in["user_id"], "bid": val}];
 			posts[i]["bid_history"].push({"user_id": user_in["user_id"], "bid": val});
 			posts[i]["number_of_bids"] = posts[i]["bid_history"].length;
 			if (val >= posts[i]["goods_now_price"]) posts[i]["is_ended"] = true;
@@ -905,7 +877,6 @@ function make_bid(id, val) {
 	return posts;
 }
 
-// 
-// old_items.push(post);
-// localStorage.setItem("posts", JSON.stringify(old_items));
+
+
 

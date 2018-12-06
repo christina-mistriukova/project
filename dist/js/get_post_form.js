@@ -5,7 +5,6 @@ let section = document.getElementById("id_section");
 let type_sell = document.getElementById("id_selling");
 let type_pay = document.getElementById("id_pay");
 let type_del = document.getElementById("id_del");
-let start_date = document.getElementById("start");
 let form = document.getElementById("new-post");
 
 let menu = "../json/data.json";
@@ -146,28 +145,28 @@ function get_time() {
 	return today;
 }
 
-function start_time(n) {
-	let obj_date = new Date;
-	let next_date;
-	for (let i=0; i<n; i++){
-		obj_date.setDate(obj_date.getDate() + 1);
-		let next_date = {
-			"day": obj_date.getDate(),
-			"month": obj_date.getMonth(), 
-			"year" :obj_date.getFullYear() 
+// function start_time(n) {
+// 	let obj_date = new Date;
+// 	let next_date;
+// 	for (let i=0; i<n; i++){
+// 		obj_date.setDate(obj_date.getDate() + 1);
+// 		let next_date = {
+// 			"day": obj_date.getDate(),
+// 			"month": obj_date.getMonth(), 
+// 			"year" :obj_date.getFullYear() 
 
-		}
-		insert_date(next_date, i);
-	}
-}
+// 		}
+// 		insert_date(next_date, i);
+// 	}
+// }
 
-function insert_date(date, numb) {
-	let option = document.createElement("option");
-	option.innerHTML = date["day"]+"-"+date["month"]+"-"+date["year"];
-	option.setAttribute("value", numb);
-	if (start_date!=null) {
-		start_date.appendChild(option);
-	}
-}
+// function insert_date(date, numb) {
+// 	let option = document.createElement("option");
+// 	option.innerHTML = date["day"]+"-"+date["month"]+"-"+date["year"];
+// 	option.setAttribute("value", numb);
+// 	if (start_date!=null) {
+// 		start_date.appendChild(option);
+// 	}
+// }
 
-start_time(5);
+// start_time(5);

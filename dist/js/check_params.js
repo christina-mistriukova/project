@@ -17,3 +17,4 @@ function check_form_add_post() {
 
 	// document.getElementById("add_new_lot").disabled = p1.value && p2.value && p3.value && p4.value && p5.value && p6.value && p7.value && p8.value ? false : "disabled";
 }
+

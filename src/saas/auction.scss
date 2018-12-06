@@ -31,11 +31,14 @@ header {
 			#enter-form {
 				display: flex;
     			flex-direction: column;
-    			align-items: center;
     			justify-content: center;
-    			width: 350px;
-    			height: 277px;
+    			align-items: center;
+				width: 350px;
+				min-height: 400px;
 				position: fixed;
+				border-radius: 4px;
+				background: url("./bg-img/log.png") no-repeat;
+				background-position: top right;
 				top: 50%;
 				left: 50%;
 				margin-top: -110px;
@@ -44,8 +47,40 @@ header {
 				box-shadow: 0 0 6px 0px #000;
 				z-index: 200;
 				p {
-					margin-bottom: 10px;
+					margin-bottom: 25px;
 					width: 200px;
+					label{
+						margin-top: 10px;
+					}
+					&.login.button {
+						input {
+							cursor: pointer;
+							&#clicker {
+								background-color: #4fc0e8;
+								border-radius: 4px;
+								border: none;
+								padding: 5px;
+								color: #fff;
+							}
+							&#log-close{
+								@extend #clicker;
+							}
+						}
+					}
+					&.reg-link {
+						button {
+							cursor: pointer;
+							&.join-button {
+								background-color: #4fc0e8;
+								border-radius: 4px;
+								border: none;
+								color: #fff;
+								height: 35px;
+								width: 80px;
+								margin-top: 20px;
+							}
+						}
+					}
 				}
 			}
 		}
@@ -210,22 +245,22 @@ header {
 		  	}
 		}
 		.downtag:before {
-		  display: block;
-		  position: absolute;
-		  top: calc(50% - 3px);
-		  right: 10px;
-		  border: 10px solid transparent;
-		  border-top: 10px solid black;
+		 	display: block;
+		 	position: absolute;
+		 	top: calc(50% - 3px);
+		 	right: 10px;
+		 	border: 10px solid transparent;
+		 	border-top: 10px solid black;
 		}
 
 		.righttag:before {
-		  content: "";
-		  display: block;
-		  position: absolute;
-		  top: calc(50% - 10px);
-		  right: 10px;
-		  border: 11px solid transparent;
-		  border-left: 11px solid black;
+		 	content: "";
+		 	display: block;
+		 	position: absolute;
+		 	top: calc(50% - 10px);
+		 	right: -10px;;
+		 	border: 11px solid transparent;
+		 	border-left: 11px solid black;
 		}
 	}
 }
@@ -239,20 +274,56 @@ main {
 	padding-bottom: 20px;
 	overflow: hidden;
 	.registration-form {
-		width: 400px;
-		height: 232px;
+		display: flex;
+    	flex-direction: column;
+    	justify-content: flex-end;
+    	align-items: center;
+		width: 350px;
+		min-height: 400px;
 		position: fixed;
+		border-radius: 4px;
+		background: url("./bg-img/log.png") no-repeat;
+		background-position: top right;
 		top: 50%;
 		left: 50%;
 		margin-top: -110px;
 		margin-left: -200px;
-		background-color: #ffffff;
+		background-color: #fff;
 		box-shadow: 0 0 6px 0px #000;
 		z-index: 200;
+		p {
+			margin-bottom: 15px;
+			width: 200px;
+			label{
+				margin-top: 10px;
+			}
+			&.login.button {
+				input {
+					cursor: pointer;
+					&#reg-clicker {
+						background-color: #4fc0e8;
+						border-radius: 4px;
+						border: none;
+						padding: 5px;
+						color: #fff;
+					}
+				}
+			}
+			button {
+				&.button-close {
+					background-color: #4fc0e8;
+					border-radius: 4px;
+					border: none;
+					padding: 5px;
+					color: #fff;
+				}
+			}
+		}
 	}
 	.main {
 		width: 1200px;
 		max-width: 100%;
+		min-height: 100vh;
 		margin: 0 auto;
 		background-color: #ffffff;
 		border-left: 1px solid #ededed;
@@ -261,23 +332,54 @@ main {
 			.main-filter-wrapper {
 				padding-top: 50px;
 				.main-filter {
+					background-color: #f8fdfe;
 					.filter {
+						display: flex;
+						flex-wrap: wrap;
+						flex-direction: column;
+    					align-items: center;
+						background: url("./bg-img/filter.png") no-repeat;
+						background-position: top right;
+						border-radius: 10px;
+						min-height: 200px;
 						p:first-child {
-							text-align: center;
-							margin-bottom: 20px;
+							font-size: 40px;
 						}
+						.price_filter{
+							p:first-child {
+								font-size: 18px;
+								margin-right: 5px;
+								&:after{
+									content: ":";
+								}
+							}
+						}
+
 						border: 1px solid #ededed;
     					padding: 20px;
-    					height: 200px;
 						div {
 							margin-bottom: 20px;
 							&.price_filter{
 								display: flex;
+								flex-wrap:wrap;
 								align-items: center;
 								justify-content: space-between;
+								margin-top: 20px;
+								width: 100%;
+								max-width: 100%;
 							}
 							label {
 								margin-right: 20px;
+							}
+						}
+						button {
+							cursor: pointer;
+							&#btn_sbm_filter {
+								background-color: #4fc0e8;
+								border-radius: 4px;
+								border: none;
+								padding: 5px;
+								color: #fff;
 							}
 						}
 					}
@@ -341,7 +443,7 @@ main {
 				}
 			}
 			.cards-wr {
-				margin-top: 15px;
+				padding-top: 80px;
 				.c-wr {
 					display: flex;
 					justify-content: center;
@@ -434,16 +536,6 @@ main {
 										display: flex;
 										div {
 											display: flex;
-											&:nth-child(n):after {
-												content: ":";
-											}
-
-											.smalltext{
-												&:nth-child(n):after {
-													content: "";
-												}
-
-											}
 										}
 									}
 
@@ -482,6 +574,15 @@ main {
 								color: #bbc4cb;
 							}
 						}
+						.place-bid {
+							width: 50%;
+							float: left;
+						}
+						.view-detail-wrapper {
+							display: flex;
+							flex-direction: column;
+							align-items: flex-end;	
+						}
 					}
 				}
 			}
@@ -514,7 +615,7 @@ footer {
 		ul {
 			display:  flex;
 			flex-wrap: wrap;
-			width: 200px;
+			width: 250px;
     		justify-content: space-between;
 			li {
 				a {
@@ -527,6 +628,14 @@ footer {
 }
 
 
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,700");
+input, select{
+	//border: none;
+	border-radius: 4px;
+	outline: none;
+	padding: 5px;
+}
 
 
+body *{
+	font-family: verdana;
+}
