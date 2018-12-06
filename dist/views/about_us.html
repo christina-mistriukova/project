@@ -1,0 +1,196 @@
+  <!doctype html>
+  <html>
+    <head>
+    <title>Auction</title>
+    </head>
+    <body>
+    <div class="overlay hide"></div>
+	<header>
+		<div class="top-header">
+			<div class="enter-wr">
+				<button id="enter-bt">Enter</button>
+				<form id="enter-form" class="hide" onsubmit="return false;">
+					<p>
+						<label for="username">Login</label>
+						<input id="username" class="uname" name="username"  type="text" placeholder="log">
+					</p>
+					<p>
+						<label for="password"  data-icon="p">Password </label>
+						<input id="password" class="youpasswd" name="password"  type="password" />
+					</p>
+					<p class="login button">
+						<input type="submit" value="Login" id="clicker"/>
+						<input type="submit" value="close" id="log-close"/>
+					</p>
+					<p class="reg-link">
+						Not a member yet ?
+						<button class="join-button">Join us</button>
+					</p>
+					<p id="no-log" class="hide">Your password or login is not correct!</p>
+				</form>
+			</div>
+			<div class="logo-wr">
+				<a href="/"><img src="./img/logo.png" alt=""></a>
+				<div class="user-wr hide">
+					<div class="acc-info">
+						<div class="acc-text">Hello, <span id="nick"></span></div>
+						<div class="header-click">
+							<button class="icon" id="my-posts">My posts</button>
+							<button id="log-out">Logout</button>
+			  				<a href="/add_posts" class="add-from-user">Add posts</a>	
+						</div>
+					</div>
+					<div class="img-wrapper">
+						<img class="acc-photo" ></img>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bottom-header">	
+			<nav>
+			  <ul class="menu-wr">
+			  </ul>	
+			  <p>
+				<input id="searching" class="searching_cl" type="search" placeholder="Search">
+				<input type="submit" value="" id="searching-clicker">
+			  </p>
+			</nav>
+		</div>
+	</header>
+	<main>
+		<div id="reg" class="registration-form hide">
+			<form>
+				<p>
+					<label for="reg-login"  data-icon="u" >Login</label>
+					<input onkeyup="check_params()" id="reg-login" class="uname" name="reg-login"  type="text" placeholder="log">
+					<span id="reg-hint" class="hide">Your login is exist, choose another one</span>
+				</p>
+				<p>
+					<label for="reg-password"  data-icon="p">Password </label>
+					<input onkeyup="check_params()" id="reg-password" class="youpasswd" name="reg-password"  type="password" />
+				</p>
+				<p>
+					<label for="reg-username"  data-icon="u" >You'r name</label>
+					<input onkeyup="check_params()" id="reg-username" class="uname" name="reg-username"  type="text">
+				</p>
+				<p>
+					<label for="reg-img"  data-icon="u" >You'r img from the internet</label>
+					<input onkeyup="check_params()" id="reg-img" class="uname" name="reg-img"  type="text">
+				</p>
+				<p class="login button">
+					<input id="reg-clicker" type="submit" value="Registration"/>
+				</p>
+				<p>
+					<button class="button-close">close</button>
+				</p>
+			</form>
+		</div>
+		<div class="main">
+			<div class="main-wr">
+				<div class="main-top-wrapper">
+					<ul class="site-addr">
+						<li><a href="">Home</a>/</li>
+						<li><a href="">Moto</a></li>
+					</ul>
+					<div class="img-wr">
+						<img src="./img/clocks.png" alt="">
+					</div>
+				</div>
+				<div class="about-us-wrapper">
+					<div class="header-wrapper">
+						<span>how it works</span>
+					</div>
+					<div class="info-block-wrapper">
+						<div class="info-block-side-wrapper">
+							<section class="info-block bottom">
+								<p>Make Online Bets</p>
+								<div class="small-text">
+									orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+								</div>
+							</section>
+							<section class="info-block">
+								<div class="img-wrapper">
+									<img src="./img/about_us1.png" alt="">
+								</div>
+							</section>
+							<section class="info-block bottom">
+								<p>Check your result in "My profile pag"</p>
+								<div class="small-text">
+									orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+								</div>
+							</section>
+						</div>
+						<div class="info-block-side-wrapper">
+							<section class="info-block left ">
+								<div class="img-wrapper">
+									<img src="./img/about_us2.png" alt="">
+								</div>
+							</section>
+							<section class="info-block bottom">
+								<p>View info and wait or BUY RIGHT NOW!</p>
+								<div class="small-text">
+									orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+								</div>
+							</section>
+							<section class="info-block">
+								<div class="img-wrapper">
+									<img src="./img/about_us3.png" alt="">
+								</div>
+							</section>
+						</div>
+					</div>
+					<div class="header-wrapper">
+						<span>how to find us</span>
+					</div>
+					<div id="map"></div>
+					<div class="company-info-wrapper">
+						<div class="contact-info">
+							<p>
+								Feel free to contac us!
+							</p>
+							<div class="info">
+								<p>+380 000 000 111&nbsp;</p>
+								<a href="tel:+380 000 000 111">For call</a>
+							</div>
+							<div class="info">
+								<p>+1234567890&nbsp;</p>
+								<a href="skype:+1234567890?call">Skype</a>
+							</div>
+							<ul class="info ntw">
+								<li class="icon-fb"><a href="https://uk-ua.facebook.com/">Facebook</a></li>
+								<li class="icon-linkedin"><a href="https://www.linkedin.com/">Linkedin</a></li>
+								<li class="icon-insta"><a href="https://www.instagram.com/?hl=ru">Instagram</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer>
+		<div class="footer-wrapper">
+			<ul>
+				<li><a href="/about_us">About us</a></li>
+				<li><a href="/gallery">Gallery</a></li>
+				<li><a href="/contacts">Contacts</a></li>
+			</ul>
+			<div class="logo-wrapper">
+				<img src="./img/logo_black.png" alt="">
+			</div>
+		</div>
+	</footer>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQ4w5iLxxetXcjdcW-PY1NrL3K-nlmmSc&callback=initMap"
+    async defer></script>
+
+    <script src="./bundle.js"></script>
+    </body>
+  </html>

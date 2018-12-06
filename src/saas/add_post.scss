@@ -1,23 +1,25 @@
 .form-add-post-wrapper{
-	// margin-bottom: 1000px;
 	form {
+		background-image: url(./bg-img/BG.png);
+		border-radius: 10px;
+		background-color: #f8fdfe;
+		padding: 20px;
 		.form-wr{
 			margin-bottom: 30px;
-			border-bottom: 1px solid #cecece;
+			border-bottom: 1px solid rgba(165, 230, 248, 0.2);
 			p {
 				margin-bottom: 10px;
-				label {
-
-				}
-
-				input {
-
-				}
+				color: #0250a2;
 				select {
-
+					color: inherit;
 				}
 			}
 		}
+	}
+	#add_new_lot {
+		background-color: #05539e;
+		color: #ffffff;
+		border: none;	
 	}
 }
 

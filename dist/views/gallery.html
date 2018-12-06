@@ -12,7 +12,7 @@
 				<form id="enter-form" class="hide" onsubmit="return false;">
 					<p>
 						<label for="username">Login</label>
-						<input id="username" class="uname" name="username"  type="text" onkeyup="check_params()" placeholder="log">
+						<input id="username" class="uname" name="username"  type="text" placeholder="log">
 					</p>
 					<p>
 						<label for="password"  data-icon="p">Password </label>
@@ -96,70 +96,12 @@
 						<img src="./img/clocks.png" alt="">
 					</div>
 				</div>
-				<div class="form-add-post-wrapper">
-					<form id="new-post" onsubmit="return false;">
-						<div class="form-wr">
-							<p>
-								<label for="goods-name">Lot's name</label>
-								<input onkeyup="check_form_add_post()" id="goods-name" name="goods-name"  type="text">
-							</p>
-							<p>
-								<label for="id_section"> Section </label>
-								<select id="id_section" autofocus="true">
-								</select>
-							</p>
-							<p>
-								<label for="goods-img">You'r img </label>
-								<input id="goods-img" type="text">
-							</p>
-							<p>
-								<label for="small-desc">Description</label>
-								<input id="small-desc" type="text">
-							</p>
-						</div>
-						<div class="form-wr">
-							<p>
-								<label for="id_selling"> Type of selling </label>
-								<select id="id_selling" autofocus="true">
-								</select>
-							</p>
-							<p>
-								<label for="goods-number">Number</label>
-								<input id="goods-number" name="goods-number"  type="number">
-							</p>
-							<p>
-								<label for="goods-start-price">Start Price</label>
-								<input id="goods-start-price" onkeyup="check_form_add_post()" name="goods-start-price"  type="number">
-							</p>
-							<p>
-								<label for="goods-now-price">Price for "Buy now!"</label>
-								<input id="goods-now-price" onkeyup="check_form_add_post()" name="goods-now-price"  type="number">
-							</p>
-							<p>
-								<label for="goods-time-days">Days</label>
-								<input id="goods-time-days" onkeyup="check_form_add_post()" name="goods-time-days"  type="number">
-								<label for="goods-time-hours">Hours</label>
-								<input id="goods-time-hours" name="goods-time-hours" type="number" onkeyup="check_form_add_post()">
-								<label for="goods-time-minutes">Minutes</label>
-								<input id="goods-time-minutes" name="goods-time-minutes"  type="number" onkeyup="check_form_add_post()">
-							</p>
-						</div>
-						<div class="form-wr">
-							<p>Paying and delivery</p>
-							<p>
-								<label for="id_pay"> Type of paying </label>
-								<select id="id_pay" autofocus="true">
-								</select>
-							</p>
-							<p>
-								<label for="id_del"> Type of delivery</label>
-								<select id="id_del" autofocus="true">
-								</select>
-							</p>
-						</div>
-						<input type="submit" value="Submit" id="add_new_lot"/>
-					</form>
-					<div class="success-post hide">Thank you for your post! You will see it on the main page or in your account page!</div>
+				<div class="gallery-wrapper">
+					<div class="last-bets">There are last bets on the site:</div>
+					<img id="mainImage" style="border:3px solid grey" src="http://localhost:8181/img/logo.png" />
+					<br />
+					<div id="divId">
+					</div>
 				</div>
 			</div>
 		</div>
@@ -176,8 +118,33 @@
 			</div>
 		</div>
 	</footer>
-	<script src="./js/check_params.js"></script>
-	<script src="./js/get_post_form.js"></script>
+	   <script src="./js/jq.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#divId img').on({
+                mouseover: function () {
+                    $(this).css({
+                        'cursor': 'pointer',
+                        'border-Color': 'red'
+                    });
+                },
+                mouseout: function () {
+                    $(this).css({
+                        'cursor': 'pointer',
+                        'border-Color': 'grey'
+                    });
+                },
+                click: function () {
+                    var imageURL = $(this).attr('src');
+                    $('#mainImage').fadeOut(500, function () {
+                        $(this).attr('src', imageURL);
+                    }).fadeIn(500);
+                }
+            });
+        });
+    </script>
+    <script src="./js/gallery.js"></script>
+
     <script src="./bundle.js"></script>
     </body>
   </html>

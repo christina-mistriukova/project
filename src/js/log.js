@@ -126,6 +126,7 @@ button_reg.addEventListener("click", function() {
 button_close_reg = document.getElementsByClassName("button-close")[0];
 button_close_reg.addEventListener("click", function() {
   document.getElementById("reg").classList.add("hide");
+  overlay.classList.add("hide");
 });
 
 button_close_log = document.getElementById("log-close");
